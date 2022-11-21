@@ -21,12 +21,9 @@ public class DataSetIniter {
     private int linesMax = 10000;
     private int commentIndex = 3;
     private int ratingIndex = 6;
-//    private int commentIndex = 7;
-//    private int ratingIndex = 2;
     private int commentLengthMin = 50;
     private int commentLengthMax = 10000;
     private String charSet = "gbk";
-//    private String charSet = "utf-8";
     private int increment = 1; //增量
     private int initPercent = 10; //所有数据需要初始化数据所占的百分比 (前百分之~)
     private int traningPercent = 70; //初始化数据中训练集所占的百分比 (前百分之~)，剩余为测试集
@@ -68,14 +65,11 @@ public class DataSetIniter {
                 String[] strs = reader.getValues();
                 String comment = strs[commentIndex];
                 String ratingStr = strs[ratingIndex];
-                if(ratingStr == null || comment == null || comment.length() < commentLengthMin || comment.length() > commentLengthMax)
+                if(ratingStr == null || comment == null || ratingStr.equals("") || comment.length() < commentLengthMin || comment.length() > commentLengthMax)
                     continue;
 
-                String clazz = "g";
-//                int rating = Integer.valueOf(ratingStr);
-                int rating = (int) Math.round(Double.valueOf(ratingStr));
-//                if(rating != 1 && rating != 4 && rating != 5)
-//                    continue;
+                String clazz;
+                int rating = Integer.valueOf(ratingStr);
                 if(rating < 2){
                     clazz = "b";
                 }else if(rating > 4){
@@ -83,16 +77,7 @@ public class DataSetIniter {
                 }else
                     continue;
 
-//                if(ratingStr.equals("1"))
-//                    clazz = "b";
-//                else if (ratingStr.equals("4") || ratingStr.equals("5"))
-//                    clazz = "g";
-//                else if (ratingStr.equals("2") || ratingStr.equals("3"))
-//                    clazz = "b";
-
-
                 comment = convert(filter(HanLP.segment(comment)));
-//                comment = convert(HanLP.extractKeyword(comment, comment.length()));
 
                 if(comment.equals(""))
                     continue;
@@ -211,5 +196,17 @@ public class DataSetIniter {
 
     public void setTraningPercent(int traningPercent) {
         this.traningPercent = traningPercent;
+    }
+
+    public void setCommentIndex(int commentIndex) {
+        this.commentIndex = commentIndex;
+    }
+
+    public void setRatingIndex(int ratingIndex) {
+        this.ratingIndex = ratingIndex;
+    }
+
+    public void setCharSet(String charSet) {
+        this.charSet = charSet;
     }
 }

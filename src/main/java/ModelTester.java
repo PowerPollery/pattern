@@ -9,8 +9,6 @@ import java.nio.charset.Charset;
 public class ModelTester {
     private String testingPath;
     private Classifier classifier;
-//    private int correct = 0;
-//    private int wrong = 0;
     //二分类可采用更加精确的统计 https://zhuanlan.zhihu.com/p/369936908?ivk_sa=1024320u
     private int TP = 0; //正确的正例
     private int FN = 0; //错误的反例
@@ -52,6 +50,7 @@ public class ModelTester {
             System.out.println("Accuracy: "+(1.0*(TP+TN)/(TP+TN+FP+FN)));
             System.out.println("Precision: "+(1.0*(TP)/(TP+FP)));
             System.out.println("Recall: "+(1.0*(TP)/(TP+FN)));
+            System.out.println("F1: "+(2.0*(1.0*(TP)/(TP+FP))*(1.0*(TP)/(TP+FN))/(1.0*(TP)/(TP+FP))+(1.0*(TP)/(TP+FN))));
 
             return (1.0*(TP+TN)/(TP+TN+FP+FN));
         }
